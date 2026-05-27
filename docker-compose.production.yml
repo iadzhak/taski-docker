@@ -11,6 +11,7 @@ services:
     env_file: .env
     volumes:
       - pg_data:/var/lib/postgresql/data
+    restart: always
 
   backend:
     image: iadzhak/taski_backend
@@ -19,6 +20,7 @@ services:
       - db
     volumes:
       - static:/backend_static
+    restart: always
 
   frontend:
     image: iadzhak/taski_frontend
@@ -26,7 +28,8 @@ services:
     volumes:
       - static:/frontend_static
     command: cp -r /app/build/. /frontend_static/
-
+    restart: always
+    
   gateway:
     image: iadzhak/taski_gateway
     ports:
@@ -35,4 +38,4 @@ services:
       - backend
     volumes:
       - static:/staticfiles
-
+    restart: always
